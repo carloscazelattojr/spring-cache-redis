@@ -1,4 +1,4 @@
-# WSpring Cache + Redis
+# Spring Cache + Redis
 
 Estudo sobre Spring Cache e Redis 
 
