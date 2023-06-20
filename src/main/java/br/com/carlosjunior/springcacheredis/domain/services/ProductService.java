@@ -29,6 +29,17 @@ public class ProductService {
         log.info("Limpando Cache");
     }
 
-    
+    public Product create(Product product){
+        log.info("Inserindo novo produto");
+        return repository.save(product);
+    }
 
+    public Product update(Long id, Product product) {
+        log.info("Atualizando produto");
+        Product productSave = repository.findById(id).get();
+        productSave.setName(product.getName());
+        productSave.setDescription(product.getDescription());
+        return repository.save(productSave);
+
+    }
 }
