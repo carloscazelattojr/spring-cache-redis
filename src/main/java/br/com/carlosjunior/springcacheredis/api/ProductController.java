@@ -21,7 +21,6 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping
-    @Cacheable(value = "products-cache")
     public ResponseEntity<List<Product>> findAll() {
         List<Product> products = service.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
@@ -33,19 +32,16 @@ public class ProductController {
     }
 
     @PostMapping
-    @CacheEvict(value = "products-cache", allEntries = true)
     public ResponseEntity<Product> create(@RequestBody Product product) {
         return new ResponseEntity<>(service.create(product), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    @CachePut(value = "products-cache", key = "#product.id")
     public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
         return new ResponseEntity<>(service.update(id, product), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/clear-cache")
-    @CacheEvict(value = "products-cache", allEntries = true)
     public ResponseEntity<Void> clearCache() {
         service.clearCache();
         return new ResponseEntity<>(null, HttpStatus.OK);
